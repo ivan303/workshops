@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   end
 
   root 'categories#index'
+
+  devise_for :users, controllers: { registrations: "users/registrations",
+  									passwords: "users/password",
+  									sessions: "users/sessions" }
 end

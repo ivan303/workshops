@@ -34,6 +34,7 @@ describe ProductsController do
 
   context 'another user is singed in' do
     let(:user) { create(:user) }
+    #print user
     let(:user2) { build(:user) }
     let(:product) { Product.create! valid_attributes }
 
