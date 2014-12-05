@@ -17,10 +17,13 @@ class ReviewsController < ApplicationController
 
 
     if review.save
+      debugger
       product.reviews << review
       redirect_to category_product_url(product.category, product), notice: 'Review was successfully created.'
     else
-      render action: 'new'
+      debugger
+      flash[:error] = 'Failed to add new review. Check all required fields.'
+      redirect_to category_product_url(product.category, product)
     end
   end
 
