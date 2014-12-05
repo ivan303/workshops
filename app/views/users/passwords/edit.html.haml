@@ -1,0 +1,18 @@
+.row
+  .col-lg-4.col-lg-offset-1
+    .jumbotron.text-center.signing
+  .col-md-6
+    %h1.text-center Change your password
+    %table.table
+      %tr
+        %td
+          = simple_form_for(resource, as: resource_name, url: password_path(resource_name), method: :post) do |f|
+            .form-inputs
+              = f.input :password, required: true, autofocus: true, label: "New password"
+              = f.input :password_confirmation, required: true, label: "Confirm new password"
+            .form-actions
+              .centered{:style => 'text-align: center'}
+                = f.button :submit, label: "Change my password", class: 'btn-lg btn-primary'
+      %tr
+        %td
+          = render "devise/shared/links"
