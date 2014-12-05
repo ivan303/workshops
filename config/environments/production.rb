@@ -84,8 +84,8 @@ Rails.application.configure do
 
   # Added by me
   # trzeba będzie zmienić jak wrzucę na heroku
-  config.action_mailer.default_url_options = { :host => 'yoursite.herokuapp.com' }
-  Rails.application.routes.default_url_options[:host] = 'yoursite.herokuapp.com'
+  config.action_mailer.default_url_options = { :host => 'stark-forest-5492.herokuapp.com' }
+  Rails.application.routes.default_url_options[:host] = 'stark-forest-5492.herokuapp.com'
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
