@@ -1,5 +1,4 @@
 class ProductsController < ApplicationController
-  # dodane
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy, :create]
 
 
@@ -27,8 +26,8 @@ class ProductsController < ApplicationController
   end
 
   def create
-    #if user_signed_in?
       self.product = Product.new(product_params)
+      product.user = current_user
 
       if product.save
         category.products << product
@@ -36,12 +35,8 @@ class ProductsController < ApplicationController
       else
         render action: 'new'
       end
-    #else
-    #  redirect_to new_user_session_path
-    #end
   end
 
-  # dodajemy ograniczenie aby tylko właściciel produktu mógł dokonywać modyfikacji; 
 
   def update
     if user_signed_in?

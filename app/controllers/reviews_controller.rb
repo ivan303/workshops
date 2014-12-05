@@ -2,12 +2,19 @@ class ReviewsController < ApplicationController
 
   expose(:review)
   expose(:product)
+  expose(:category)
 
-  def edit
+
+  def new
+  end
+
+  def index
   end
 
   def create
     self.review = Review.new(review_params)
+    review.user_id = current_user.id
+
 
     if review.save
       product.reviews << review

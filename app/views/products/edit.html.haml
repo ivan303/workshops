@@ -1,7 +1,17 @@
-%h1 Editing product
-
-= render 'form'
-
-= link_to 'Show', category_product_path(category, product)
-\|
-= link_to 'Back', category_path(category)
+.row
+  .jumbotron.text-center.col-lg-10.col-lg-offset-1
+    .text{:style => "padding-top: 50px"}
+      %h1{:style => 'color: #ffffff'} Editing product
+.row
+  .col-lg-10.col-lg-offset-1
+    .table-container{:style => "width: 500px"}
+      %table.table
+        %col{:width => "500"}
+          %tr
+            %td
+              = render 'form'
+            %td   
+          %tr
+            %td
+              = link_to 'Back', category_products_path, class: 'btn btn-primary'
+              = link_to 'Show', category_product_path(category, product), class: 'btn btn-primary'

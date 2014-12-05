@@ -1,0 +1,17 @@
+.row
+  .col-lg-4.col-lg-offset-1
+    .jumbotron.text-center.signing
+  .col-md-6
+    %h1.text-center Forgot your password
+    %table.table
+      %tr
+        %td
+          = simple_form_for(resource, as: resource_name, url: password_path(resource_name)) do |f|
+            .form-inputs
+              = f.input :email, required: true, autofocus: true
+            .form-actions
+              .centered{:style => 'text-align: center'}
+                = f.button :submit, "Send me reset password instructions", class: "btn-lg btn-primary"
+      %tr
+        %td
+          = render "devise/shared/links"

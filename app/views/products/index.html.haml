@@ -1,21 +1,33 @@
-%h1 Listing products
+.row
+  .jumbotron.text-center.col-lg-10.col-lg-offset-1
+    .text{:style => "padding-top: 50px"}
+      %h1{:style => 'color: #ffffff'} #{category.name} games
 
-%table
-  %tr
-    %th Title
-    %th Description
-    %th Price
-    %th
-    %th
-    %th
+.row
+  .col-lg-10.col-lg-offset-1
+    -unless category.products.empty?
+      %h1 All products in category #{category.name}
+    -else
+      %h1 Currently no products in category #{category.name}
 
-  - products.each do |product|
-    %tr
-      %td= product.title
-      %td= product.description
-      %td= product.price
-      %td= link_to 'Show', category_product_path(product.category, product)
-      %td= link_to 'Edit', edit_category_product_path(product.category, product)
-      %td= link_to 'Destroy', category_product_path(product.category, product), method: :delete, data: { confirm: 'Are you sure?' }
+    %table.table
+      %tr
+        %th Title
+        %th Description
+        %th Price
+        %th Average rating
 
-%br
+      -unless category.products.empty?
+        - category.products.each do |product|
+          %tr
+            %td
+              = link_to product.title, category_product_path(category, product)
+            %td= product.description
+            %td= product.decorate.price_with_dollar
+            %td= product.decorate.pretty_average_rating
+      %tr
+        %td
+        %td
+        %td
+        %td{:align => "right"}
+          = link_to "New product", new_category_product_path, class: 'btn btn-primary'

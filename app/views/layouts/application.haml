@@ -9,13 +9,38 @@
     = javascript_include_tag 'application'
 
   %body
-    %nav.navbar.navbar-default
-      .container-fluid
+    %nav.navbar.navbar-default.navbar-fixed-top
+      .container.col-lg-6.col-lg-offset-3
         .navbar-header
           %span.navbar-brand #{AppConfig.workshops_name}
-        %p.navbar-text.navbar-right
-          Links should go here
-    .container-fluid
+        .navbar-collapse.collapse
+          %ul.nav.navbar-nav.navbar-right
+            %li.active
+              = link_to "Home", root_path
+            %li.dropdown.active
+              %a.dropdown-toggle{:href => "#", "role" => "button", "data-toggle" => "dropdown"}
+                = current_user ? current_user.firstname : "Account"
+                %b.caret
+              %ul.dropdown-menu 
+                -if current_user
+                  %li
+                    = link_to "Profile", user_path(current_user)
+                  %li
+                    = link_to "Edit account", edit_user_registration_path
+                  %li.divider
+                  %li
+                    = link_to "Sign out", destroy_user_session_path, method: "delete"
+                -else 
+                  %li
+                    = link_to "Sign in", new_user_session_path
+                  %li 
+                    = link_to "Sign up", new_user_registration_path
+    .container           
       .row
-        .col-lg-12
-          = yield
+        .col-lg-10.col-lg-offset-1
+          - flash.each do |type, message|
+            .alert{ class: bootstrap_class_for(type)}
+              = message
+
+      = yield
+    = debug(params) if Rails.env.development?

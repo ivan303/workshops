@@ -1,1 +1,37 @@
 @import "bootstrap";
+@import url('//fonts.googleapis.com/css?family=Rajdhani:700');
+
+body {
+	padding-top: 70px;
+	padding-bottom: 70px;
+	font-family: Rajdhani, sans-serif;
+	font-size: 16px;
+}
+
+a:link, a:visited {
+	color: navy;
+}
+
+.jumbotron {
+	background-image: url(games2.png);
+	background-position: up;
+	&.profile {
+		background-image: url(profile.jpg)
+	}
+	&.signing {
+		background-image: url(sign.jpg);
+		height: 768px;
+
+	}
+}
+
+/*.panel-body {
+	background: #839529
+}*/
+
+
+
+/*.text {
+	position: relative;
+	bottom: 0px;
+}*/

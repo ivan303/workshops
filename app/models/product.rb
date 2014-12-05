@@ -10,7 +10,7 @@ class Product < ActiveRecord::Base
   #validate
 
   def average_rating
-		sum = 0
+		sum = 0.0
 		self.reviews.each do |rev|
 			sum += rev.rating
 		end

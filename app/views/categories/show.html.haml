@@ -1,17 +1,37 @@
-%p#notice= notice
-
-%p
-  %b Name:
-  = category.name
-
-%p
-  - category.products.each do |product|
-    = product.title
-
-%p
-  %h3 New product
-  = render 'products/form'
-
-= link_to 'Edit', edit_category_path(category)
-\|
-= link_to 'Back', categories_path, class: 'btn btn-primary'
+.row
+  .jumbotron.text-center.col-lg-10.col-lg-offset-1
+    .text{:style => "padding-top: 50px"}
+      %h1{:style => 'color: #ffffff'} #{category.name}
+.row
+  .col-lg-2.col-lg-offset-1
+    %br
+    .panel.panel-default
+      = link_to category_products_path(category) do
+        .panel-body.text-center{:style => 'background-color: #0099ff'}
+          %h4 Show all #{category.products.size} products
+  .col-lg-6
+    -unless category.products.empty?
+      %h1.text-center Top 5 products in category #{category.name}
+      %table.table
+        %tr
+          %th
+            %h4 Title
+          %th.text-center
+            %h4 Average rating
+        - best_rated_products.each do |pr|
+          %tr
+            %td 
+              %h5 
+                = link_to pr.title, category_product_path(category.id, pr.id)
+            %td.text-center
+              %h5 #{pr.decorate.pretty_average_rating}
+    -else
+      %h1.text-center Currently no products in category #{category.name}
+    - if user_signed_in? and current_user.admin?
+      = link_to 'Edit category', edit_category_path, class: 'btn btn-primary'  
+  .col-lg-2
+    %br
+    .panel.panel-default
+      = link_to new_category_product_path(category) do
+        .panel-body.text-center{:style => 'background-color: #0099ff'}
+          %h4 Add new product

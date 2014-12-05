@@ -1,7 +1,23 @@
-%h1 Editing category
+.row
+  .jumbotron.text-center.col-lg-10.col-lg-offset-1
+    .text{:style => "padding-top: 50px"}
+      %h1{:style => 'color: #ffffff'} Editing category
 
-= render 'form'
+.row
+  .col-lg-4.col-lg-offset-1
 
-= link_to 'Show', category
-\|
-= link_to 'Back', categories_path, class: 'btn btn-primary'
+
+    %table.table
+      %col{:width => "300"}
+      %tr
+        %td
+          = render 'form'
+        %td   
+      %tr
+        %td
+          = link_to 'Show', category, class: 'btn btn-primary'
+          = link_to 'Back', categories_path, class: 'btn btn-primary'
+
+   
+      
+

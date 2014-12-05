@@ -1,19 +1,28 @@
-%h1 Listing categories
+.row  
+  .jumbotron.text-center.col-lg-10.col-lg-offset-1
+    -#%div.container
+    .text{:style => "padding-top: 50px"}
+      %h1{:style => 'color: #ffffff'} Let's play!
+      %h4{:style => 'color: #ffffff'} Meet thousends of players like you!
+      %h4{:style => 'color: #ffffff'} Read their reviews. Give your review.
 
-%table.table
-  %tr
-    %th Name
-    %th
-    %th
-    %th
+.row
+  .col-lg-10.col-lg-offset-1
+    %h1 Games categories
 
-  - categories.each do |category|
-    %tr
-      %td= category.name
-      %td= link_to 'Show', category
-      %td= link_to 'Edit', edit_category_path(category)
-      %td= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }
+    -a = 0
+    -categories.each_slice(2) do |cats|
+      .row
+        -cats.each do |category|
+          .col-lg-6
+            .panel.panel-default
+              = link_to category_path(category) do
+                .panel-body.text-center{:style => get_color(a)}
+                  %h4 #{category.name}
+              -a = (a+1)%4  
 
-%br
 
-= link_to 'New Category', new_category_path
+    %br
+
+    -if user_signed_in? and current_user.admin?
+      = link_to 'New Category', new_category_path, class: 'btn btn-primary'

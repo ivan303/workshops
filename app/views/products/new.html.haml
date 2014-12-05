@@ -1,5 +1,17 @@
-%h1 New product
+.row
+  .jumbotron.text-center.col-lg-10.col-lg-offset-1
+    .text{:style => "padding-top: 50px"}
+      %h1{:style => 'color: #ffffff'} New product
+.row
+  .col-lg-10.col-lg-offset-1
 
-= render 'form'
-
-= link_to 'Back', category_products_path
+    .table-container{:style => "width: 500px"}
+      %table.table
+        %col{:width => "500"}
+          %tr
+            %td
+              = render 'form'
+            %td   
+          %tr
+            %td
+              = link_to 'Back', category_products_path, class: 'btn btn-primary'

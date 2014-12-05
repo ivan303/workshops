@@ -1,25 +1,64 @@
-%p#notice= notice
-%p#error= flash[:error]
+.row
+  .jumbotron.text-center.col-lg-10.col-lg-offset-1
+    .text{:style => "padding-top: 50px"}
+      %h1{:style => 'color: #ffffff'} #{product.title}
 
-%p
-  %b Title:
-  = product.title
-%p
-  %b Description:
-  = product.description
-%p
-  %b Price:
-  = product.price
+.row
+  .col-lg-10.col-lg-offset-1
+    %table.table
+      %col{:width => "120"}
 
-%p
-  %b Category
-  = product.category.name
+      %tr
+        %td Title
+        %td= product.title  
+      %tr
+        %td.left Description
+        %td= product.description
+      %tr
+        %td Price
+        %td= product.decorate.price_with_dollar
+      %tr
+        %td Added by
+        %td= product.decorate.owner
+      %tr
+        %td
+        %td{:align => "right"} 
+          -if product.user == current_user
+            = link_to 'Edit', edit_category_product_path(category.id, product.id), class: 'btn btn-primary'
+            = link_to 'Remove', category_product_path(category.id, product.id), class: 'btn btn-primary', method: "delete"  
+    %br      
+    %br
+    %br
+    %table.table
+      %col{:width => "120"}
+      
+      %tr
+        %td Reviews
+        -unless product.reviews.empty?
+          %td
+            -product.reviews.each do |review|
+              %p{:style => "text-indent: 20px"} #{review.content}
+              %p
+                %b{:style => "color: #ff0000"} #{review.rating}
+                %em
+                  = link_to review.decorate.author, user_path(review.user_id)
+              %br
+                
+        -else
+          %td No reviews for this product yet.
+      
+      -if user_signed_in?
+        %tr
+          %td Add review
+          %td= render 'reviews/form'
+      -else
+        %tr
+          %td
+          %td{:style => "font-size: 30px"}
+            = link_to "Sign in", new_user_session_path
+            to add review
 
-%h3 Reviews
-= render 'reviews/form'
+      %tr
+        %td
+          = link_to 'Back', category_products_path, class: 'btn btn-primary'
 
-= render reviews
-
-= link_to 'Edit', edit_category_product_path(category.id, product.id)
-\|
-= link_to 'Back', category_products_path, class: 'btn btn-primary'

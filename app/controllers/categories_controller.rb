@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
 
   def new
     if current_user.admin?
-      redirect_to new_category_path
+      render action: 'new'
     else
       redirect_to new_user_session_path
     end
@@ -21,8 +21,9 @@ class CategoriesController < ApplicationController
 
   def edit
     if current_user.admin?
-      redirect_to edit_category_path
+      render action: 'edit'
     else
+      flash[:error] = 'You are not an admin'
       redirect_to new_user_session_path
     end
   end
@@ -54,8 +55,13 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    category.destroy
-    redirect_to categories_url, notice: 'Category was successfully destroyed.'
+    if current_user.admin?
+      category.destroy
+      redirect_to categories_url, notice: 'Category was successfully destroyed.'
+    else
+      flash[:error] = 'You are not an admin'
+      redirect_to categories_path
+    end
   end
 
   private

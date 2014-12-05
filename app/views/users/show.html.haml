@@ -1,0 +1,56 @@
+.row  
+  .jumbotron.col-lg-10.col-lg-offset-1.profile
+    .text{:style => "padding-bottom: 50px"}
+      %h1{:style => 'color: #ffffff'}
+        = @user.decorate.gravatar 
+        #{@user.firstname} #{@user.lastname}
+
+.row
+  .col-lg-4.col-lg-offset-1
+    %h3{:style => 'text-align: center'} User data
+    %table.table
+      %tr
+        %td
+          %h4 email
+        %td
+          %h4 #{@user.email}
+      %tr
+        %td
+          %h4 firstname
+        %td
+          %h4 #{@user.firstname}
+      %tr
+        %td
+          %h4 lastname
+        %td
+          %h4 #{@user.lastname}
+      %tr
+        %td
+          %h4 Products
+        %td
+          %h4 
+            = @user.decorate.number_of_products
+      %tr
+        %td
+          %h4 Reviews
+        %td
+          %h4
+            = @user.decorate.number_of_reviews
+
+  .col-lg-6
+    -unless @user.reviews.empty?
+      %h3{:style => 'text-align: center'} Latest reviews
+      %table.table
+        %tr
+          %td
+
+            - @user.decorate.latest_reviews.each do |review|
+              %ul
+                %li 
+                  = link_to review.product.title, category_product_path(review.product.category, review.product) 
+                  %br
+                  in category #{link_to review.product.category.name, category_path(review.product.category)}, rated #{review.rating} on #{review.created_at.strftime("%d-%m-%y")}
+                %p{:style => "text-indent: 20px"} #{review.content}
+                %br
+    -else
+      %h3{:style => 'text-align: center'} #{@user.firstname} has not added any review yet
